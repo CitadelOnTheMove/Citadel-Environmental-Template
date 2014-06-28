@@ -11,10 +11,11 @@
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
-        <!--------------- CSS files ------------------->    
-        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />        
-        <link rel="stylesheet" href="css/environmental.min.css" />
-        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile.structure-1.2.0.min.css" /> 
+        <!--------------- CSS files -------------------> 
+        <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jquerymobile/1.4.2/jquery.mobile.min.css" />
+        <!--        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />        -->
+        <!--      <link rel="stylesheet" href="css/environmental.min.css" />-->
+        <!--        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile.structure-1.2.0.min.css" /> -->
         <link rel="stylesheet" href="css/my.css" />
 
 
@@ -35,7 +36,8 @@
         <!-- Date Format Library --> 
         <script src="js/date.format.js"></script>
         <!-- jQuery Mobile Library -->
-        <script src="js/jquery.mobile-1.2.0.min.js"></script>  
+        <script src="//ajax.googleapis.com/ajax/libs/jquerymobile/1.4.2/jquery.mobile.min.js"></script>
+<!--        <script src="js/jquery.mobile-1.2.0.min.js"></script>  -->
         <!-- Page params Library: Used to pass query params to embedded/internal pages of jQuery Mobile -->
         <script src="js/jqm.page.params.js"></script>        
         <!-- Template specific functions and handlers -->    
@@ -44,10 +46,29 @@
     </head> 
 
     <body>
+
+        <!--  List Page: Contains a list with environmental categories  -->
+        <div data-role="page" id="homePage" class="page">
+
+            <header data-role="header" data-position="fixed" data-id="constantNav">
+                <h1>Environmental Data</h1>               
+            </header>
+
+            <!--            <div class="list-container">-->
+            <div data-role="content" id="category" > 
+                <ul data-role='listview' data-theme='a'>
+                    <!-- dynamically filled with data -->
+                </ul>
+            </div>
+
+            <!--            </div>list-container-->
+        </div><!-- /page -->
+
         <!-- Home Page: Contains the Map -->
         <div data-role="page" id="page1" class="page">
-            <header data-role="header" data-posistion="fixed" data-id="constantNav" data-fullscreen="true">
-                <span class="ui-title">Environmental Template</span>
+            <header data-role="header" data-position="fixed" data-id="constantNav" data-fullscreen="true" data-tap-toggle="false">
+                <h1>Environmental Template</h1>
+                <a href="#homePage" data-icon="bars" data-iconpos="notext" data-theme="a" title="Environmental Categories" class="ui-btn-left"></a>      
 
                 <div data-role="navbar" class="navbar">
                     <ul>
@@ -75,22 +96,23 @@
         <!--  List Page: Contains a list with the results  -->
         <div data-role="page" id="page2" class="page">
 
-            <header data-role="header" data-posistion="fixed" data-id="constantNav">
-                <span class="ui-title"> Environmental Data </span>               
+            <header data-role="header" data-position="fixed" data-id="constantNav">
+                <h1> Sensors </h1> 
+                <a href="#homePage" data-icon="bars" data-iconpos="notext" data-theme="a" title="Environmental Data" class="ui-btn-left"></a>      
                 <a href="" data-icon="back" data-iconpos="notext" data-theme="a" title="Back" data-rel="back" class="ui-btn-right">&nbsp;</a>
                 <div data-role="navbar" class="navbar">
                     <ul>
                         <li><a href="#" class="feeds-nearme" data-theme="a">Near me</a></li>
                         <li><a href="#" class="feeds-showall" data-theme="a">Show all</a></li>
-                        <li><a href="#page2" class="feeds-list ui-btn-active" data-theme="a">List</a></li>
+                        <li><a href="#" class="feeds-list ui-btn-active" data-theme="a">List</a></li>
                     </ul>
                 </div><!-- /navbar -->
             </header>
 
             <div class="list-container">
                 <div class="list-scroll-container">
-                    <div data-role="content" id="list" class="feed">
-                        <ul data-role='listview' data-filter='true' data-theme='b'>
+                    <div data-role="content" id="list" >
+                        <ul data-role='listview' data-filter='true' data-theme='a'>
                             <!-- dynamically filled with data -->
                         </ul>
                     </div><!--list-->
@@ -102,52 +124,48 @@
         <!-- Details Page: Contains the details of a selected element -->
 
         <div data-role="page" id="page3" class="page">
-            <header data-role="header" data-posistion="fixed" data-fullscreen="true">
-                <span class="ui-title"> Environmental Data </span>
+            <header data-role="header" data-position="fixed" >
+
+                <h1> Details</h1>
                 <a href="" data-icon="back" data-iconpos="notext" data-theme="a" title="Back" data-rel="back" class="ui-btn-right">&nbsp;</a>
-                <a href="#info" data-rel="dialog" data-icon="info" data-iconpos="notext" data-theme="b" title="Info" class="ui-btn-left">&nbsp;</a>
+                <a href="#info"  data-transition="pop" data-icon="info" data-iconpos="notext" data-theme="a" title="Info" class="ui-btn-left">&nbsp;</a>
 
             </header>
 
 
-            <div data-role="fieldcontain">
-                <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
-                    <legend>Icon Legend </legend>
-                    <input name="radio-orientation" id="isOn" value="isOn" type="radio">
-                    <label for="isOn">On</label>
-                    <input name="radio-orientation" id="isOff" value="isOff" checked="checked" type="radio">
-                    <label for="isOff">Off</label>
-                </fieldset>
-            </div>
+            <div data-role="content" id="item">
+               
+                <a onclick='seeOnMap(); return false;'  class="ui-btn ui-shadow ui-corner-all ui-icon-location ui-btn-icon-notext">See on map</a>
+                <span id="detailsTitle"></span>
+                <ul  data-role="listview" data-inset="true">
+                </ul>
+                <div class="ui-body ui-body-a ui-corner-all">
+                    <p id="categoryDescription"></p></div>
 
-            <div class="list-container">
-                <div class="list-scroll-container">
-                    <div data-role="content" id="item">                    
-                        <!-- dynamically filled with data -->
-                    </div><!--item-->
-                </div><!--list-scroll-container-->
-            </div><!--list-container-->
+                <input id="historyButton" data-icon="history" data-iconpos="right" value="View History" type="button">
 
-            <footer data-role="footer" data-posistion="fixed" data-fullscreen="true">
-                <a href="" id="addFav" data-icon="star" data-theme="a" title="Add to favourites" data-rel="star" class="ui-btn-center">Add to favourites</a>
-                <a href="" id="removeFav" data-icon="star" data-theme="a" title="Remove from favourites" data-rel="star" class="ui-btn-center">Remove from favourites</a>
-            </footer>
+            </div><!--item-->
 
         </div> <!-- page --> 
 
 
+
         <!-- Info Page: Contains info of the currently used dataset -->  
-        <div data-role="dialog" id="info">
+        <div data-role="page" data-dialog="true" id="info">
+
             <header data-role="header">
                 <span class="ui-title">Sensor Metadata</span>	
             </header>
 
             <article data-role="content">
-                <ul data-role="listview">
+                <ul id="sensorInfo" data-role="listview">
                     <!-- dynamically filled with data -->
                 </ul> 
             </article> 
-        </div> 
+        </div> <!--info-->
+
+
+
 
         <!-- History graph: The history graph of a datastream -->  
         <div data-role="dialog" id="history-graph">
@@ -179,13 +197,14 @@
             /* GLobal map object */
             var map;
             /* List of feeds read from json object */
-            var feeds = new Array("36075", "125493", "125492", "125488", "125490");
+            //            "36075",
+            var feeds = new Array("125493", "125492", "125488", "125490");
             var cachedfeedsArray = {};
             var mapIsReady = false;
             var markerDataIsReady = false;
 
             /* Holds all markers */
-            var markersArray = {};
+            var markersArray = new Array();
 
             /* var oms will hold all the markers so as to resolve
              * the issue of overlapping ones
@@ -212,6 +231,14 @@
             var mapLat = <?php echo MAP_CENTER_LATITUDE; ?>;
             var mapLon = <?php echo MAP_CENTER_LONGITUDE; ?>;
             var mapZoom = <?php echo MAP_ZOOM; ?>;
+            
+            var ozoneDescription = "<?php echo OZONE_DESCRIPTION; ?>";
+            var temperatureDescription = "<?php echo TEMPERATURE_DESCRIPTION; ?>";
+            var humidityDescription = "<?php echo HUMIDITY_DESCRIPTION; ?>";
+            var noiseDescription = "<?php echo NOISE_DESCRIPTION; ?>";
+            var carbonMonoxideDescription = "<?php echo CARBON_MONOXIDE_DESCRIPTION; ?>";
+            var carbonDioxideDescription = "<?php echo CARBON_DIOXIDE_DESCRIPTION; ?>";
+            var nitrogenDioxideDescription = "<?php echo NITROGEN_DIOXIDE_DESCRIPTION; ?>";
 
             /* Just call the initialization function when the page loads */
             $(window).load(function() {
