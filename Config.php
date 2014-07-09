@@ -3,13 +3,25 @@
  * Configuration settings
 */
 
+// Useful directories
+$root_path = dirname(dirname(__FILE__)) . '/';
+$web_path = dirname($_SERVER['PHP_SELF']);
+$relative_path = $_SERVER['SERVER_NAME'] . dirname($web_path) . '/';
+$path_parts = explode('/', $web_path);
+$app_path = end($path_parts) . '/';
+if (isset($_SERVER['HTTPS'])) {
+	$server_name = "https://" . $relative_path;
+} else {
+	$server_name = "http://" . $relative_path;
+}
+
 // directories
-define("HTDOCS_ROOT", "C:/wamp/www/"); //Don't forget to insert the web root directory (for example:
+define("HTDOCS_ROOT", $root_path); //Don't forget to insert the web root directory (for example:
                                        // "C:/wamp/www/")
-define("BASE_DIR", "environmental-template/" );
+define("BASE_DIR", $app_path);
 define("CLASSES_DIR", "php/");
 define("CLASSES", HTDOCS_ROOT . BASE_DIR . CLASSES_DIR);
-define("SERVERNAME", "http://localhost/"); //Don't forget to replace localhost
+define("SERVERNAME", $server_name); //Don't forget to replace localhost
                                            //with your IP address, if you want to connect to the template                                                 with your mobile phone
 
 define("DEBUG", false);
@@ -26,4 +38,5 @@ define("CARBON_MONOXIDE_DESCRIPTION", "Carbon monoxide is a odorless, tasteless,
 define("TEMPERATURE_DESCRIPTION", "A temperature is a numerical measure of hot and cold. Its measurement is by detection of heat radiation, particle velocity, kinetic energy, or most commonly, by the bulk behavior of a thermometric material. It may be calibrated in any of various temperature scales, Celsius, Fahrenheit, Kelvin, etc.");
 define("NOISE_DESCRIPTION", "Noise means any unwanted sound. Elevated workplace or other noise can cause hearing impairment, hypertension, ischemic heart disease, annoyance, and sleep disturbance.");
 define("HUMIDITY_DESCRIPTION", "Humidity is the amount of water vapor in the air. Ideal humidity is generally described as between 40 percent and 60 percent, although some experts believe it should be closer to 35-45 percent. When humidity is higher than this, as is common in the summer, it can contribute to the growth of mold, dust mites, and fungus, making it particularly dangerous for people with asthma and allergies. Low humidity is equally dangerous, however, and may even lead to serious complications to your health.");
-?>
+
+
